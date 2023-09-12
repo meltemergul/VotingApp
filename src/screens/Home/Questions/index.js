@@ -1,46 +1,25 @@
-import { StyleSheet, Text, View, FlatList } from 'react-native'
-import React from 'react'
-import { gql, useQuery, useSubscription } from '@apollo/client'
+import React from 'react';
+import { gql, useQuery, useSubscription } from '@apollo/client';
 import { GET_QUESTIONS_SUBSCRIPTION } from './queries';
-
-
+import Loading from '../../../components/AddButton/Loading';
+import Item from './Item'; // Item komponentini ekledik
+import { FlatList, Text } from 'react-native';
 export default function Questions() {
     const { loading, data, error } = useSubscription(GET_QUESTIONS_SUBSCRIPTION);
+
     if (loading) {
-        return <Text>Loading...</Text>
+        return <Loading />;
     }
 
-    if (error) { return <Text> {JSON.stringify(error)}</Text> }
-    console.log("data", data);
+    if (error) {
+        return <Text>{JSON.stringify(error)}</Text>;
+    }
+
     return (
-        <View style={styles.container}>
-            <FlatList
-                data={data.questions} // Veri kaynağını belirtin
-                keyExtractor={(item) => item.id.toString()} // Her öğenin benzersiz bir anahtarı olduğunu varsayalım
-                renderItem={({ item }) => (
-                    <View style={styles.item}>
-                        <Text>{item.text}</Text>
-                    </View>
-                )}
-            />
-
-        </View>
-    )
+        <FlatList
+            data={data.questions}
+            renderItem={({ item }) => <Item item={item} />} // Her öğe için Item komponentini kullanıyoruz
+            keyExtractor={(item) => item.id.toString()} // Eşsiz bir anahtar sağlıyoruz
+        />
+    );
 }
-
-const styles = StyleSheet.create({
-    container:
-    {
-        backgroundColor: 'white',
-
-    }
-    ,
-    item: {
-        padding: 16,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-
-    },
-
-
-})

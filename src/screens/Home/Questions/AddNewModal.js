@@ -1,10 +1,16 @@
 
 import React, { useState } from 'react'
-import { Box, Button, Heading, Input } from 'native-base'
+import { Box, Button, Heading, Input, useToast } from 'native-base'
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { ADD_NEW_QUESTION_MUTATION } from './queries';
+import { useMutation } from '@apollo/client';
+const AddNewModal = ({ closeModal }) => {
+    const toast = useToast();
+    const [addNewQuestion, { loading, error }] = useMutation(
+        ADD_NEW_QUESTION_MUTATION);
 
-const AddNewModal = () => {
-    const [question, setQuestion] = useState("");
+
+    const [title, setTitle] = useState("");
     const [options, setOptions] = useState([{ text: "" }, { text: "" }]);
 
     const handleOptionChange = (val, i) => {
@@ -18,9 +24,25 @@ const AddNewModal = () => {
         setOptions((prev) => [...prev, { text: "" }]);
     };
 
-    const handleSubmit = () => {
-        console.log("question", question);
-        console.log("options", options);
+    const handleSubmit = async () => {
+        const options_data = options.filter((item) => item.text != "");
+        if (!title || options_data.length < 2) {
+            return;
+        }
+
+        await addNewQuestion({
+            variables: {
+                title,
+                options: options_data,
+            },
+        });
+
+        closeModal();
+        toast.show({
+            title: "question added",
+            placement: "bottom",
+            status: "success",
+        })
 
     };
     return (
@@ -29,7 +51,7 @@ const AddNewModal = () => {
                 Questions
             </Heading>
                 <Input placeholder='Enter a new question'
-                    fontSize={20} borderColor="#686565" value={question} onChangeText={setQuestion}
+                    fontSize={20} borderColor="#686565" value={title} onChangeText={setTitle}
                 />
                 <Heading mt={6} mb={2}>Options</Heading>
                 {options.map((item, i) =>
@@ -48,7 +70,7 @@ const AddNewModal = () => {
 
             </Box>
             <Box>
-                <Button onPress={handleSubmit} >Save</Button>
+                <Button onPress={handleSubmit} isLoading={loading}>Save</Button>
             </Box>
 
         </Box>

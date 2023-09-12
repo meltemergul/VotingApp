@@ -5,15 +5,15 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from "./screens/Home";
-import AddButton from './components/AddButton';
-
+import Detail from './screens/Detail';
 const Stack = createNativeStackNavigator();
 
 function Router() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Home" component={Home} options={{ title: "Questions" }} />
+                <Stack.Screen name="Detail" component={Detail} options={{ title: "Details" }} />
             </Stack.Navigator>
         </NavigationContainer>
     );

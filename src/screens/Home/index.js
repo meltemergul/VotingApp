@@ -24,7 +24,7 @@ const Home = ({ navigation }) => {
                 onRequestClose={() => setModalVisible(false)
                 }
             >
-                <AddNewModal></AddNewModal>
+                <AddNewModal closeModal={() => setModalVisible(false)}></AddNewModal>
             </Modal>
         </View>
     )
