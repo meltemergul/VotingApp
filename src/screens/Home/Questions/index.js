@@ -4,6 +4,7 @@ import { GET_QUESTIONS_SUBSCRIPTION } from './queries';
 import Loading from '../../../components/AddButton/Loading';
 import Item from './Item'; // Item komponentini ekledik
 import { FlatList, Text } from 'react-native';
+import EmptyList from '../../../components/AddButton/EmptyList/index'
 export default function Questions() {
     const { loading, data, error } = useSubscription(GET_QUESTIONS_SUBSCRIPTION);
 
@@ -16,10 +17,16 @@ export default function Questions() {
     }
 
     return (
-        <FlatList
-            data={data.questions}
-            renderItem={({ item }) => <Item item={item} />} // Her öğe için Item komponentini kullanıyoruz
-            keyExtractor={(item) => item.id.toString()} // Eşsiz bir anahtar sağlıyoruz
-        />
+        <>
+            {
+                data.questions.length > 0 ? (
+                    <FlatList data={data.questions}
+                        renderItem={({ item }) => <Item item={item} />}
+                        keyExtractor={(item) => item.id.toString()} />)
+                    :
+                    (<EmptyList></EmptyList>)
+
+            }
+        </>
     );
 }

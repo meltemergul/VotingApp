@@ -14,7 +14,6 @@ const Loading = () => {
                 }}
                 source={require('./animations/loading.json')}
             />
-
         </View>
     )
 }
