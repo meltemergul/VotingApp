@@ -21,7 +21,7 @@ function Questions() {
             {data.questions.length > 0 ? (
                 <FlatList data={data.questions} renderItem={({ item }) => <Item item={item} />} keyExtractor={(item) => item.id.toString()} />)
                 :
-                (<EmptyList message={"custom message"}></EmptyList>)}
+                (<EmptyList message={"No Surveys Yet."}></EmptyList>)}
         </>
     );
 }
