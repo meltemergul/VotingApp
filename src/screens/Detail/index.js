@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import { useQuery } from '@apollo/client';
 import { GET_QUESTION_DETAIL } from './queries';
-import Loading from '../../components/AddButton/Loading';
+import Loading from '../../components/Loading';
 import { Box, Heading, Divider } from 'native-base';
 import Form from './Form';
 import Result from './Results/index';
