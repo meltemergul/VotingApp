@@ -28,10 +28,10 @@ const Form = ({ options, setIsVoted }) => {
         <Box py={"3"}>
             <Radio.Group value={selected} onChange={setSelected}>
                 {options.map(option =>
-                    (<Radio key={option.id} value={option.id} my={1}>{option.text}</Radio>))}
+                    (<Radio colorScheme="blue" key={option.id} value={option.id} my={1}>{option.text}</Radio>))}
             </Radio.Group>
 
-            <Button onPress={handleSubmit} isLoading={loading} mt={5}>Submit</Button>
+            <Button onPress={handleSubmit} colorScheme="blue" isLoading={loading} mt={5}>Submit</Button>
         </Box>
 
 

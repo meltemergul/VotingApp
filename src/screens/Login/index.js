@@ -1,50 +1,63 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet } from 'react-native'
 import React, { useState } from 'react'
-import { Box, Button, Heading, Input } from 'native-base'
-import auth from '../auth';
-
+import { Box, Button, Heading, Input, Image } from 'native-base'
+//import auth from "../auth";
+import { useNavigation } from '@react-navigation/native'
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigation = useNavigation();
     const handleSignUp = () => {
         if (!email || !password) {
             return;
 
         }
         auth
-            .createUserWithEmailAndPassword(email, password).then((userCredentials) => {
+            .createUserWithEmailAndPassword(email, password)
+            .then((userCredentials) => {
                 const user = userCredentials.user;
-                console.log("user", user);
+                console.log('user', user);
             })
             .catch((error) => alert(error.message));
     };
     return (
-        <Box p={6}>
+
+        <Box p={6} backgroundColor={"white"} height={"100%"}>
+            <Box>
+                <Image source={require('../../enter.png')} alignSelf={"center"} mb={5} mt={5} style={{
+                    width: 100,
+                    height: 100,
+
+                }} />
+            </Box>
+
             <Box mb={2}>
-                <Heading mb={2}>
-                    E-mail
-                </Heading>
-                <Input placeholder='Please enter your E-mail'
-                    fontSize={20} borderColor="#686565"
+
+                <Input placeholder='Email'
+                    fontSize={20}
                     value={email}
+                    shadow={"5"}
                     onChangeText={setEmail}
-                    autoCapitalize={false}
+                    variant={"filled"}
+
+
                 />
 
             </Box>
             <Box my={2}>
-                <Heading mb={2}>
-                    Password
-                </Heading>
-                <Input placeholder='Enter your Password'
-                    fontSize={20} borderColor="#686565"
+
+                <Input placeholder='Password'
+                    fontSize={20}
                     value={password}
                     onChangeText={setPassword}
+                    shadow={5}
                     secureTextEntry
+                    variant={"filled"}
                 /></Box>
             <Box mt={4}>
-                <Button colorScheme={"blue"} size={"lg"}> Login </Button>
-                <Button mt={4} colorScheme={"blue"} variant={"outline"} size={"lg"} onPress={handleSignUp}> Register </Button>
+                <Button shadow={5} colorScheme={"blue"} size={"lg"} onPress={() => navigation.navigate("Home")} >Login </Button>
+                <Button shadow={5} mt={4} colorScheme={"blue"} variant={"subtle"} size={"lg"} onPress={handleSignUp}
+                > Register </Button>
             </Box>
         </Box>
 

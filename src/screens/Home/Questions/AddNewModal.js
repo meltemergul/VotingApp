@@ -51,18 +51,18 @@ const AddNewModal = ({ closeModal }) => {
                 Questions
             </Heading>
                 <Input placeholder='Enter a new question'
-                    fontSize={20} borderColor="#686565" value={title} onChangeText={setTitle}
+                    fontSize={20} variant={"filled"} value={title} onChangeText={setTitle}
                 />
                 <Heading mt={6} mb={2}>Options</Heading>
                 {options.map((item, i) =>
-                    <Input placeholder='Enter a new question'
-                        fontSize={18} borderColor="#686565" mb={1} key={i}
+                    <Input variant={"filled"} placeholder='Enter a new options'
+                        fontSize={18} mb={1} key={i}
                         value={item.text}
                         onChangeText={(val) => handleOptionChange(val, i)}
                     />
                 )}
                 <Box mt={2} alignItems={{ base: "flex-end" }}>
-                    <Button size="xs" colorScheme={"blueGray"}
+                    <Button size="xs" colorScheme={"gray"}
                         disabled={options.length >= 5}
                         onPress={handleNewOption}
                         leftIcon={<Ionicons name="add-circle" size={30} color={"white"} ></Ionicons>} ></Button>
@@ -70,7 +70,7 @@ const AddNewModal = ({ closeModal }) => {
 
             </Box>
             <Box>
-                <Button onPress={handleSubmit} isLoading={loading}>Save</Button>
+                <Button onPress={handleSubmit} colorScheme={"blue"} isLoading={loading}>SAVE</Button>
             </Box>
 
         </Box>
