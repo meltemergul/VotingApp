@@ -82,4 +82,5 @@ To learn more about React Native, take a look at the following resources:
 
 # Mobile Project
 
+Ana sayfa özelliği geliştirildi.
 login sayfası oluşturuldu.
